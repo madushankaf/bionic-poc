@@ -91,13 +91,19 @@ table<Campaign> campaigns = table [
 
 service /bionic on new http:Listener(8080) {
 
-    resource function get campaigns() returns Campaign[]|http:Ok|http:InternalServerError|error? {
-        Campaign[] campaignList = from Campaign campaign in campaigns
-            select campaign;
-        return campaignList;
+    // resource function get campaigns() returns Campaign[]|http:Ok|http:InternalServerError|error? {
+    //     Campaign[] campaignList = from Campaign campaign in campaigns
+    //         select campaign;
+    //     return campaignList;
 
-    }
-    resource function get campaigns/[string id]() returns Campaign|http:Ok|http:InternalServerError|http:NotFound|error? {
+    // }
+    resource function get campaigns(string? id) returns Campaign|Campaign[]|http:Ok|http:InternalServerError|http:NotFound|error? {
+        if id == () {
+            Campaign[] campaignList = from Campaign campaign in campaigns
+                select campaign;
+            return campaignList;
+        }
+
         Campaign[] selectedCampaign = from Campaign campaign in campaigns
             where campaign.id == id
             select campaign;
@@ -128,7 +134,5 @@ service /bionic on new http:Listener(8080) {
 
         return selectedCampaign[0];
     }
-
-
 
 }
