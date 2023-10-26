@@ -1,0 +1,98 @@
+openapi: 3.0.3
+info:
+  title: Campaigns - Nodejs REST API Interface - Bionic
+  description: >-
+    This is a sample REST API specification for a simple proxy
+    written in Nodejs
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Choreo
+  url: https://choreo.dev
+servers:
+  - url: http://localhost:9090
+tags:
+  - name: keys
+    description: In-memory key-value cache API
+paths:
+  /campaigns:
+    summary: List all campaigns
+    get:
+      summary: List all campaigns
+      operationId: ListAllcampaigns
+      tags:
+        - campaigns
+      parameters:
+        - name: id
+          in: query
+          description: The ID of the campaigns
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Campaign"
+    post:
+      summary: add a new campaign
+      operationId: SetNewCampaign
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid request body
+      tags:
+        - campaigns
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Campaign"
+    put:
+      summary: update a new campaign
+      operationId: UpdateCampaign
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid request body
+      tags:
+        - campaigns
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Campaign"
+
+components:
+  schemas:
+    Campaign:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the campaign
+          example: ""
+        createdAt:
+          type: string
+          description: The creation date of the campaign
+          example: ""
+        Company:
+          type: string
+          description: The company associated with the campaign
+          example: ""
+        CampaignName:
+          type: string
+          description: The name of the campaign
+          example: ""
+        Advertiser:
+          type: string
+          description: The advertiser of the campaign
+          example: ""
