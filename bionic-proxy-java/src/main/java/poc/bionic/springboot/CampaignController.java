@@ -12,7 +12,7 @@ import java.util.LinkedHashMap;
 @RestController
 public  class CampaignController {
     private final RestTemplate restTemplate = new RestTemplate();
-    private static final String BASE_URL = System.getenv("BASE_URL") != null ? System.getenv("BASE_URL") : "http://13.59.213.5:8080/bionic";
+    private static final String BASE_URL = System.getenv("BASE_URL") != null ? System.getenv("BASE_URL") : "http://3.19.66.80:8080/bionic";
 
     @GetMapping("/campaigns")
     public ResponseEntity<Object> getCampaigns(@RequestParam(required = false) String id) {
