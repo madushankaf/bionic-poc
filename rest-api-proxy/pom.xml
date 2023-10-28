@@ -8,11 +8,11 @@
         <version>2.4.13</version>
         <relativePath/>
     </parent>
-    <groupId>poc.bionic.springboot</groupId>
-    <artifactId>poc-bionic-proxy</artifactId>
+    <groupId>com.wso2.choreo.sample</groupId>
+    <artifactId>product-catalog-app</artifactId>
     <version>1.0.0</version>
-   <name>Bionic Proxy Interface</name>
-    <description>Bionic Proxy Interface</description>
+    <name>Product Catalog App</name>
+    <description>Sample SpringBoot Application to updated to run on Choreo</description>
     <properties>
         <java.version>16</java.version>
     </properties>

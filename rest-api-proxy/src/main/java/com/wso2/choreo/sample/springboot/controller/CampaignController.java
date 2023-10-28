@@ -1,5 +1,4 @@
-package poc.bionic.springboot;
-
+package com.wso2.choreo.sample.springboot.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
