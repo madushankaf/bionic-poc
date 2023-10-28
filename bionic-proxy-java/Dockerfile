@@ -34,5 +34,4 @@ USER 10014
 COPY --from=0 "/java-springboot/target/poc-bionic-proxy-*.jar" app.jar
 
 # Fire up our Spring Boot app by default
-EXPOSE 9090
 CMD [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
