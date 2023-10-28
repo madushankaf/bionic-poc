@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     <groupId>com.wso2.choreo.sample</groupId>
-    <artifactId>product-catalog-app</artifactId>
+    <artifactId>proxy-api</artifactId>
     <version>1.0.0</version>
     <name>Product Catalog App</name>
-    <description>Sample SpringBoot Application to updated to run on Choreo</description>
+    <description>Proxy API</description>
     <properties>
         <java.version>16</java.version>
     </properties>
