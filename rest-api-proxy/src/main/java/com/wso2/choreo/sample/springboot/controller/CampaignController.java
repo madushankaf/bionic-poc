@@ -16,8 +16,8 @@ public  class CampaignController {
     @GetMapping("/campaigns")
     public ResponseEntity<Object> getCampaigns(@RequestParam(required = false) String id) {
         String url = (id != null) ? BASE_URL + "/campaigns?id=" + id : BASE_URL + "/campaigns";
-        ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
-        return response;
+        //ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
+        return ResponseEntity.status(HttpStatus.OK).body("Hello World");
     }
 
     @PostMapping("/campaigns")
