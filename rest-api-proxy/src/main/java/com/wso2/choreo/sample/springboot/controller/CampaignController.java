@@ -16,8 +16,13 @@ public  class CampaignController {
     @GetMapping("/campaigns")
     public ResponseEntity<Object> getCampaigns(@RequestParam(required = false) String id) {
         String url = (id != null) ? BASE_URL + "/campaigns?id=" + id : BASE_URL + "/campaigns";
-        //ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
-        return ResponseEntity.status(HttpStatus.OK).body("Hello World");
+        try {
+            ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
+            return ResponseEntity.ok().body(response.getBody());
+        } catch (Exception e) {
+            // Log the error or handle it in some way
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while retrieving campaigns");
+        }
     }
 
     @PostMapping("/campaigns")
