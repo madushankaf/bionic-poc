@@ -37,7 +37,7 @@ public  class CampaignController {
         String id = (String) ((LinkedHashMap) updatedCampaign).get("id");
         String url = BASE_URL + "/campaigns/" + id;
         restTemplate.put(url, updatedCampaign);
-        ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
-        return ResponseEntity.status(HttpStatus.OK).body(response.getBody());
+        return ResponseEntity.ok().body(updatedCampaign);
+     
     }
 }
