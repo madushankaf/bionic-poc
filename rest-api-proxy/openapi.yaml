@@ -31,6 +31,18 @@ paths:
           required: false
           schema:
             type: string
+        - name: page
+          in: query
+          description: The page number
+          required: false
+          schema:
+            type: integer
+        - name: size
+          in: query
+          description: The page size
+          required: false
+          schema:
+            type: integer
       responses:
         "200":
           description: Successful operation

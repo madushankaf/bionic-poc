@@ -15,13 +15,26 @@ public  class CampaignController {
     private static final String BASE_URL = System.getenv("BASE_URL") != null ? System.getenv("BASE_URL") : "http://3.19.66.80:8080/bionic";
 
     @GetMapping("/campaigns")
-    public ResponseEntity<Object> getCampaigns(@RequestParam(required = false) String id) {
+    public ResponseEntity<Object> getCampaigns(@RequestParam(required = false) String id, @RequestParam(required = false) String page, @RequestParam(required = false) String size) {
         String url = (id != null) ? BASE_URL + "/campaigns?id=" + id : BASE_URL + "/campaigns";
         try {
             if (id == null) {
-                ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
-                ArrayList<Campaign> campaigns = (ArrayList<Campaign>) response.getBody();
-                return ResponseEntity.ok().body(campaigns);
+                if (page == null || size == null) {
+                    ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
+                    ArrayList<Campaign> campaigns = (ArrayList<Campaign>) response.getBody();
+                    return ResponseEntity.ok().body(campaigns);
+                }
+                else {
+                    int pageSize = (size != null) ? Integer.parseInt(size) : 10;
+                    int pageNumber = (page != null) ? Integer.parseInt(page) : 0;
+                    ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
+                    ArrayList<Campaign> campaigns = (ArrayList<Campaign>) response.getBody();
+                    int startIndex = pageNumber * pageSize;
+                    int endIndex = Math.min(startIndex + pageSize, campaigns.size());
+                    campaigns = new ArrayList<>(campaigns.subList(startIndex, endIndex));
+                    return ResponseEntity.ok().body(campaigns);
+                    // Your code here
+                }   
             } else {
                 ResponseEntity<Object> response = restTemplate.getForEntity(url, Object.class);
                 Campaign campaign = restTemplate.getForObject(url, Campaign.class);
