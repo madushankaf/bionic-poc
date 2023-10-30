@@ -22,19 +22,58 @@ service graphql:Service /bionic on new graphql:Listener(4000) {
     }
 
     resource function get campaigns(string? company, string? advertiser, string? campaignName) returns Campaign[]|error {
-        Campaign[] campaigns = check bionicBackendClient->/campaigns;
+        Campaign[] allCampaigns = check bionicBackendClient->/campaigns;
 
         if (company == null && advertiser == null && campaignName == null) {
-            return campaigns;
-        } else {
-            campaigns = from Campaign campaign in campaigns
-                where (company != null && campaign.Company == company) ||
-                      (advertiser != null && campaign.Advertiser == advertiser) ||
-                      (campaignName != null && campaign.CampaignName == campaignName)
-                select campaign;
-            return campaigns;
+            return allCampaigns;
         }
 
+        Campaign[] campaigns = [];
+        if (company != null) {
+            campaigns = from Campaign campaign in allCampaigns
+                where campaign.Company == company
+                select campaign;
+        }
+
+        if (advertiser != null) {
+            Campaign[] filteredCampaigns = from Campaign campaign in allCampaigns
+                where campaign.Advertiser == advertiser
+                select campaign;
+
+            foreach Campaign filteredCampaign in filteredCampaigns {
+                boolean isDuplicate = false;
+                foreach Campaign campaign in campaigns {
+                    if (filteredCampaign.id == campaign.id) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    campaigns.push(filteredCampaign);
+                }
+            }
+        }
+
+        if (campaignName != null) {
+            Campaign[] filteredCampaigns = from Campaign campaign in allCampaigns
+                where campaign.CampaignName == campaignName
+                select campaign;
+
+            foreach Campaign filteredCampaign in filteredCampaigns {
+                boolean isDuplicate = false;
+                foreach Campaign campaign in campaigns {
+                    if (filteredCampaign.id == campaign.id) {
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+                if (!isDuplicate) {
+                    campaigns.push(filteredCampaign);
+                }
+            }
+        }
+
+        return campaigns;
     }
 
 }
