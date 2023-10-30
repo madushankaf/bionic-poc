@@ -55,25 +55,16 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Campaign"
-  /campaigns/{id}:
-    summary: Update a campaign
     put:
-      summary: Update a campaign
+      summary: update a new campaign
       operationId: UpdateCampaign
-      tags:
-        - campaigns
-      parameters:
-        - name: id
-          in: path
-          description: The ID of the campaign
-          required: true
-          schema:
-            type: string
       responses:
         "200":
           description: Successful operation
         "400":
           description: Invalid request body
+      tags:
+        - campaigns
       requestBody:
         content:
           application/json:
