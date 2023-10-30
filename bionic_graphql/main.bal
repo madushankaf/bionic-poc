@@ -21,8 +21,28 @@ service graphql:Service /bionic on new graphql:Listener(4000) {
         return campaign;
     }
 
-    resource function get campaigns() returns Campaign[]|error {
+    resource function get campaigns(string? company, string? advertiser, string? campaignName) returns Campaign[]|error {
         Campaign[] campaigns = check bionicBackendClient->/campaigns;
+
+        if (company != null) {
+            campaigns = from Campaign campaign in campaigns
+                where campaign.Company == company
+                select campaign;
+        }
+
+        if (advertiser != null) {
+            campaigns = from Campaign campaign in campaigns
+                where campaign.Advertiser == advertiser
+                select campaign;
+
+        }
+
+        if (campaignName != null) {
+            campaigns = from Campaign campaign in campaigns
+                where campaign.CampaignName == campaignName
+                select campaign;
+        }
+
         return campaigns;
     }
 
