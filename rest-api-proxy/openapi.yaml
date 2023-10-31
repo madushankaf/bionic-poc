@@ -20,7 +20,7 @@ paths:
   /campaigns:
     summary: List all campaigns
     get:
-      summary: List all campaigns
+      summary: Useful to retrieve a campaign by Id. To get all campaigns do not include query params. For paged campaigns, include page and size.
       operationId: ListAllcampaigns
       tags:
         - campaigns
