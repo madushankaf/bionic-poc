@@ -53,7 +53,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/Campaign"
     post:
-      summary: add a new campaign
+      summary: add a new campaign, do not include the ID, it will be added by the system.
       operationId: SetNewCampaign
       responses:
         "200":
