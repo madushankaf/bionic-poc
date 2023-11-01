@@ -2,11 +2,11 @@ import ballerina/graphql;
 import ballerina/http;
 
 public type Campaign record {|
-    string? id;
-    string? createdAt;
-    string? Company;
-    string? CampaignName;
-    string? Advertiser;
+    string? id?;
+    string? createdAt?;
+    string? Company?;
+    string? CampaignName?;
+    string? Advertiser?;
 |};
 
 configurable string backendUrl = "http://3.19.66.80:8080/bionic";
@@ -31,19 +31,19 @@ service graphql:Service /bionic on new graphql:Listener(4000) {
         Campaign[] campaigns = [];
         if (company != null) {
             campaigns = from Campaign campaign in allCampaigns
-                where campaign.Company == company
+                where campaign?.Company == company
                 select campaign;
         }
 
         if (advertiser != null) {
             Campaign[] filteredCampaigns = from Campaign campaign in allCampaigns
-                where campaign.Advertiser == advertiser
+                where campaign?.Advertiser == advertiser
                 select campaign;
 
             foreach Campaign filteredCampaign in filteredCampaigns {
                 boolean isDuplicate = false;
                 foreach Campaign campaign in campaigns {
-                    if (filteredCampaign.id == campaign.id) {
+                    if (filteredCampaign?.id == campaign?.id) {
                         isDuplicate = true;
                         break;
                     }
@@ -56,13 +56,13 @@ service graphql:Service /bionic on new graphql:Listener(4000) {
 
         if (campaignName != null) {
             Campaign[] filteredCampaigns = from Campaign campaign in allCampaigns
-                where campaign.CampaignName == campaignName
+                where campaign?.CampaignName == campaignName
                 select campaign;
 
             foreach Campaign filteredCampaign in filteredCampaigns {
                 boolean isDuplicate = false;
                 foreach Campaign campaign in campaigns {
-                    if (filteredCampaign.id == campaign.id) {
+                    if (filteredCampaign?.id == campaign?.id) {
                         isDuplicate = true;
                         break;
                     }
