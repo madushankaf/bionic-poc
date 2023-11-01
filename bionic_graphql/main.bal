@@ -2,11 +2,11 @@ import ballerina/graphql;
 import ballerina/http;
 
 public type Campaign record {|
-    string id;
-    string createdAt;
-    string Company;
-    string CampaignName;
-    string Advertiser;
+    string? id;
+    string? createdAt;
+    string? Company;
+    string? CampaignName;
+    string? Advertiser;
 |};
 
 configurable string backendUrl = "http://3.19.66.80:8080/bionic";
